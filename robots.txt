@@ -1,0 +1,5 @@
+# STAGING: не индексировать превью; при переносе на основной домен заменить правила
+User-agent: *
+Disallow: /
+User-agent: OAI-SearchBot
+Disallow: /
