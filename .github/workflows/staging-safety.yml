@@ -1,0 +1,36 @@
+name: BestClimate Premium Staging Checks
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'assets/**'
+      - 'robots.txt'
+      - 'scripts/verify-staging.mjs'
+      - '.github/workflows/staging-safety.yml'
+  pull_request:
+    paths:
+      - '*.html'
+      - 'assets/**'
+      - 'robots.txt'
+      - 'scripts/verify-staging.mjs'
+      - '.github/workflows/staging-safety.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-staging:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prevent publication of closed store addresses and broken links
+        run: |
+          node --check scripts/verify-staging.mjs
+          node scripts/verify-staging.mjs
