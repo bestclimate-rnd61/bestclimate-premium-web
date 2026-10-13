@@ -3,3 +3,4 @@ User-agent: *
 Disallow: /
 User-agent: OAI-SearchBot
 Disallow: /
+# SEO: индексация тестовой версии закрыта до переноса на основной домен.
