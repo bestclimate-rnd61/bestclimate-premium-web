@@ -18,7 +18,7 @@ function recalc(){snapshot();const total=rooms.reduce((s,r)=>s+unit(r),0);sum.te
 Object.values(inputs).forEach(el=>el.addEventListener(el.tagName==='SELECT'?'change':'input',recalc));
 document.getElementById('room-add').addEventListener('click',()=>{if(rooms.length>=12){alert('В калькуляторе максимум 12 комнат. Для крупного объекта запросите индивидуальную смету.');return}snapshot();rooms.push({name:'Комната '+(rooms.length+1),line:4,wall:'concrete',stroke:2,facade:1,extra:0,installation:false});active=rooms.length-1;draw()});
 function quote(){recalc();return 'Здравствуйте! Прошу уточнить смету на закладку трасс.\n'+rooms.map((r,i)=>(i+1)+'. '+r.name+': трасса '+r.line+' м, штроба '+r.stroke+' м ('+({gas:'газоблок',brick:'кирпич',concrete:'монолит/бетон'}[r.wall])+'), фасадные отверстия '+r.facade+', дополнительные '+r.extra+(r.installation?', стандартный монтаж':'')+'; расчёт '+money(unit(r))).join('\n')+'\nПредварительный итог: '+money(rooms.reduce((s,r)=>s+unit(r),0))+'.\nУточните итоговую цену после согласования условий и объёма работ.'}
-send.addEventListener('click',()=>window.open(wa(quote()),'_blank','noopener'));
+send.addEventListener('click',()=>{const a=document.createElement('a');a.href=wa(quote());a.target='_blank';a.rel='noopener noreferrer';document.body.appendChild(a);a.click();a.remove()});
 copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(quote());copy.textContent='✓ Скопировано';setTimeout(()=>copy.textContent='Скопировать смету',2000)}catch(e){copy.textContent='Используйте WhatsApp'}});
 draw();
 }
