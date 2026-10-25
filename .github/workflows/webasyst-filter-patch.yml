@@ -1,0 +1,23 @@
+name: Webasyst filter patch safety
+
+on:
+  pull_request:
+    paths:
+      - 'webasyst/mobile-filter-staging/**'
+      - '.github/workflows/webasyst-filter-patch.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Validate the single-file patch
+        run: python webasyst/mobile-filter-staging/verify_webasyst_filter_patch.py
+
