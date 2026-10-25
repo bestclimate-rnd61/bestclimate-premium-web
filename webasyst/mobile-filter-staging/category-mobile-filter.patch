@@ -1,0 +1,10 @@
+--- a/category.html
++++ b/category.html
+@@ -128,5 +128,5 @@
+         <i class="m-filters-open__icon far fa-sliders-h"></i>
+         [`Selection by parameters`]
+     </div>
+-    {if $is_mobile}{include file="./mobile.filters.html"}{/if}
++    {include file="./mobile.filters.html"}
+ {/if}
+
